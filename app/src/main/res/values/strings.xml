@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">NotePlanner</string>
+
+    <string name="text_dashboard">Dashboard</string>
+    <string name="notes">Notes</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="date">Date</string>
+    <string name="ascending">Ascending</string>
+    <string name="descending">Descending</string>
+    <string name="text_bulb_turn_on">Day mode on</string>
+    <string name="add_edit_note">Add Edit Note</string>
+    <string name="add_note">Add Note</string>
+</resources>
