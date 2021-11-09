@@ -26,6 +26,7 @@ import com.caner.noteplanner.data.model.Note
 import com.caner.noteplanner.data.viewstate.Resource
 import com.caner.noteplanner.presentation.viewmodel.MainViewModel
 import com.caner.noteplanner.view.navigation.MainActions
+import com.caner.noteplanner.view.notes.animation.LottieAnimationPlaceHolder
 import com.caner.noteplanner.view.notes.state.NoteEvent
 
 @Composable
@@ -105,12 +106,10 @@ fun AddNotes(
             }
         }
 
-        is Resource.Loading -> {
-            Text(text = "loading")
-        }
-
         is Resource.Empty -> {
-
+            LottieAnimationPlaceHolder(
+                lottie =  R.raw.empty_state
+            )
         }
 
         is Resource.Error -> {
