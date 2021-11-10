@@ -1,4 +1,6 @@
-# NotePlanner
+# 🗒️ NotePlanner
+
+The goal of this project is using Jetpack Compose with the latest technology stack of Android
 
 ## 🎨 Screenshots
 
@@ -18,6 +20,11 @@
     * [System UI Controller](https://google.github.io/accompanist/systemuicontroller/)
 - [Coil](https://github.com/coil-kt/coil)
 - [Lottie](https://github.com/airbnb/lottie-android)
+
+
+## 🗼 Architecture
+
+- [Model-View-ViewModel](https://en.wikipedia.org/wiki/Model–view–viewmodel)(MVVM) pattern helps to completely separate the business and presentation logic from the UI
 
 ### 🙏 Special thanks goes to
 
