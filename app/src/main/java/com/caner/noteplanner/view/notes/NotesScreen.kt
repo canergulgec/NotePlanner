@@ -85,7 +85,7 @@ fun NoteTopBar(viewModel: MainViewModel = hiltViewModel()) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_sort),
                     tint = MaterialTheme.colors.primary,
-                    contentDescription = stringResource(R.string.text_bulb_turn_on),
+                    contentDescription = stringResource(R.string.sort),
                 )
             }
         },
@@ -108,12 +108,16 @@ fun AddNotes(
 
         is Resource.Empty -> {
             LottieAnimationPlaceHolder(
-                lottie =  R.raw.empty_state
+                lottie = R.raw.empty_state,
+                message = stringResource(id = R.string.empty_note_list)
             )
         }
 
         is Resource.Error -> {
-            Text(text = "error")
+            LottieAnimationPlaceHolder(
+                lottie = R.raw.error_state,
+                message = noteState.throwable.message ?: ""
+            )
         }
     }
 }
@@ -167,7 +171,7 @@ fun NoteList(
                         Icon(
                             imageVector = Icons.Default.Delete,
                             tint = MaterialTheme.colors.onSurface,
-                            contentDescription = stringResource(R.string.text_bulb_turn_on),
+                            contentDescription = stringResource(R.string.delete_note),
                         )
                     }
                 }

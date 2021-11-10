@@ -8,7 +8,10 @@
     <string name="date">Date</string>
     <string name="ascending">Ascending</string>
     <string name="descending">Descending</string>
-    <string name="text_bulb_turn_on">Day mode on</string>
+    <string name="bulb_turn_on">Day mode on</string>
+    <string name="delete_note">Delete note</string>
+    <string name="sort">Sort</string>
     <string name="add_edit_note">Add Edit Note</string>
     <string name="add_note">Add Note</string>
+    <string name="empty_note_list">No notes yet</string>
 </resources>
