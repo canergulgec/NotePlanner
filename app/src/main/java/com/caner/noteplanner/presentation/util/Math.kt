@@ -3,9 +3,9 @@ package com.caner.noteplanner.presentation.util
 import androidx.compose.ui.unit.*
 
 fun getMaxSp(scrollOffset: Float): TextUnit {
-    return maxOf(28.0, 40.0 * scrollOffset).sp
+    return maxOf(24.0, 32.0 * scrollOffset).sp
 }
 
-fun getIconMaxSize(scrollOffset: Float): Dp {
-    return max(28.dp, 40.dp * scrollOffset)
+fun getMaxDp(scrollOffset: Float): Dp {
+    return max(24.dp, 32.dp * scrollOffset)
 }

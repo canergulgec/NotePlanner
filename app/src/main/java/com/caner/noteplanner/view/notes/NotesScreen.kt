@@ -29,7 +29,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.caner.noteplanner.R
 import com.caner.noteplanner.data.model.Note
 import com.caner.noteplanner.data.viewstate.Resource
-import com.caner.noteplanner.presentation.util.getIconMaxSize
+import com.caner.noteplanner.presentation.util.getMaxDp
 import com.caner.noteplanner.presentation.util.getMaxSp
 import com.caner.noteplanner.presentation.viewmodel.MainViewModel
 import com.caner.noteplanner.view.navigation.MainActions
@@ -82,7 +82,7 @@ fun NotesScreen(
 
 @Composable
 fun NoteTopBar(scrollOffset: Float, viewModel: MainViewModel = hiltViewModel()) {
-    val animatedSize by animateDpAsState(targetValue = max(72.dp, 128.dp * scrollOffset))
+    val animatedSize by animateDpAsState(targetValue = max(64.dp, 100.dp * scrollOffset))
     TopAppBar(
         title = {
             Text(
@@ -103,7 +103,7 @@ fun NoteTopBar(scrollOffset: Float, viewModel: MainViewModel = hiltViewModel()) 
                     painter = painterResource(id = R.drawable.ic_sort),
                     tint = MaterialTheme.colors.primary,
                     contentDescription = stringResource(R.string.sort),
-                    modifier = Modifier.size(getIconMaxSize(scrollOffset)),
+                    modifier = Modifier.size(getMaxDp(scrollOffset)),
                 )
             }
         },
