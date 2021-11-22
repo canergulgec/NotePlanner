@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -81,8 +82,18 @@ fun NotesScreen(
 }
 
 @Composable
-fun NoteTopBar(scrollOffset: Float, viewModel: MainViewModel = hiltViewModel()) {
-    val animatedSize by animateDpAsState(targetValue = max(64.dp, 100.dp * scrollOffset))
+fun NoteTopBar(
+    scrollOffset: Float,
+    collapsedToolbarHeight: Dp = 56.dp,
+    expandedToolbarHeight: Dp = 112.dp,
+    viewModel: MainViewModel = hiltViewModel()
+) {
+    val appBarSize by animateDpAsState(
+        targetValue = max(
+            collapsedToolbarHeight,
+            expandedToolbarHeight * scrollOffset
+        )
+    )
     TopAppBar(
         title = {
             Text(
@@ -108,7 +119,7 @@ fun NoteTopBar(scrollOffset: Float, viewModel: MainViewModel = hiltViewModel()) 
             }
         },
         elevation = 0.dp,
-        modifier = Modifier.height(animatedSize)
+        modifier = Modifier.height(appBarSize)
     )
 }
 
@@ -138,6 +149,10 @@ fun AddNotes(
                 lottie = R.raw.error_state,
                 message = noteState.throwable.message ?: ""
             )
+        }
+
+        is Resource.Loading -> {
+            // do nothing
         }
     }
 }
