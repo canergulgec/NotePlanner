@@ -8,7 +8,7 @@ import androidx.navigation.navArgument
 import com.caner.noteplanner.data.Constants
 import com.caner.noteplanner.presentation.util.Screen
 import com.caner.noteplanner.view.detail.AddEditNoteScreen
-import com.caner.noteplanner.view.notes.NotesScreen
+import com.caner.noteplanner.view.notes.NoteRoute
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -22,7 +22,7 @@ fun SetNavigation() {
         composable(
             Screen.Dashboard.route
         ) {
-            NotesScreen(actions)
+            NoteRoute(actions)
         }
 
         composable(
