@@ -13,7 +13,6 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.*
@@ -32,6 +31,7 @@ import com.caner.noteplanner.data.model.Note
 import com.caner.noteplanner.presentation.util.getMaxDp
 import com.caner.noteplanner.presentation.util.getMaxSp
 import com.caner.noteplanner.presentation.viewmodel.MainViewModel
+import com.caner.noteplanner.ui.components.ShowDialog
 import com.caner.noteplanner.view.navigation.MainActions
 import com.caner.noteplanner.view.notes.animation.LottieAnimationPlaceHolder
 import com.caner.noteplanner.view.notes.state.NoteEvent
@@ -84,7 +84,6 @@ fun NoteList(
     uiState: NoteUiState,
     actions: MainActions,
     scrollState: LazyListState,
-    scaffoldState: ScaffoldState = rememberScaffoldState(),
     onErrorDismiss: (Long) -> (Unit)
 ) {
     when (uiState) {
@@ -115,21 +114,13 @@ fun NoteList(
             if (uiState.errorMessages.isNotEmpty()) {
                 // Remember the errorMessage to display on the screen
                 val errorMessage = remember(uiState) { uiState.errorMessages[0] }
-                val errorMessageText: String = stringResource(errorMessage.messageId)
+                val errorMessageText = stringResource(errorMessage.messageId)
 
-                // If onErrorDismiss change while the LaunchedEffect is running,
-                // don't restart the effect and use the latest lambda values.
-                val onErrorDismissState by rememberUpdatedState(onErrorDismiss)
-
-                // Effect running in a coroutine that displays the SnackBar on the screen
-                // If there's a change to errorMessageText or scaffoldState,
-                // the previous effect will be cancelled and a new one will start with the new values
-                LaunchedEffect(errorMessageText, scaffoldState) {
-                    scaffoldState.snackbarHostState.showSnackbar(message = errorMessageText)
-
-                    // Once the message is displayed and dismissed, notify the ViewModel
-                    onErrorDismissState(errorMessage.id)
-                }
+                ShowDialog(
+                    showDialog = uiState.errorMessages.isNotEmpty(),
+                    message = errorMessageText,
+                    dismiss = { onErrorDismiss(errorMessage.id) }
+                )
             }
         }
     }

@@ -25,7 +25,6 @@ fun NoteRoute(
     actions: MainActions,
     viewModel: MainViewModel = hiltViewModel()
 ) {
-    val scaffoldState = rememberScaffoldState()
     val scrollState = rememberLazyListState()
     val scrollOffset: Float = min(
         1f,
@@ -33,7 +32,6 @@ fun NoteRoute(
     )
 
     Scaffold(
-        scaffoldState = scaffoldState,
         topBar = {
             NoteTopBar(scrollOffset = scrollOffset)
         },
@@ -58,9 +56,10 @@ fun NoteRoute(
         val uiState by viewModel.uiState.collectAsState()
 
         Column(modifier = Modifier.fillMaxSize()) {
-            SortView(uiState = uiState) {
-                viewModel.onEvent(NoteEvent.Order(it))
-            }
+            SortView(
+                uiState = uiState,
+                orderSelected = { viewModel.onEvent(NoteEvent.Order(it)) }
+            )
             NoteList(
                 uiState = uiState,
                 actions = actions,
