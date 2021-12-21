@@ -30,8 +30,7 @@ import com.caner.noteplanner.R
 import com.caner.noteplanner.data.model.Note
 import com.caner.noteplanner.presentation.util.getMaxDp
 import com.caner.noteplanner.presentation.util.getMaxSp
-import com.caner.noteplanner.presentation.viewmodel.MainViewModel
-import com.caner.noteplanner.ui.components.ShowDialog
+import com.caner.noteplanner.presentation.viewmodel.NoteViewModel
 import com.caner.noteplanner.view.navigation.MainActions
 import com.caner.noteplanner.view.notes.animation.LottieAnimationPlaceHolder
 import com.caner.noteplanner.view.notes.state.NoteEvent
@@ -40,9 +39,10 @@ import com.caner.noteplanner.view.notes.state.NoteUiState
 @Composable
 fun NoteTopBar(
     scrollOffset: Float,
+    isOrderSectionVisible: Boolean,
     collapsedToolbarHeight: Dp = 56.dp,
     expandedToolbarHeight: Dp = 112.dp,
-    viewModel: MainViewModel = hiltViewModel()
+    viewModel: NoteViewModel = hiltViewModel()
 ) {
     val appBarSize by animateDpAsState(
         targetValue = max(
@@ -61,17 +61,19 @@ fun NoteTopBar(
             )
         },
         actions = {
-            IconButton(
-                onClick = {
-                    viewModel.onEvent(NoteEvent.ToggleOrderSection)
+            if (isOrderSectionVisible) {
+                IconButton(
+                    onClick = {
+                        viewModel.onEvent(NoteEvent.ToggleOrderSection)
+                    }
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_sort),
+                        tint = MaterialTheme.colors.primary,
+                        contentDescription = stringResource(R.string.sort),
+                        modifier = Modifier.size(getMaxDp(scrollOffset)),
+                    )
                 }
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_sort),
-                    tint = MaterialTheme.colors.primary,
-                    contentDescription = stringResource(R.string.sort),
-                    modifier = Modifier.size(getMaxDp(scrollOffset)),
-                )
             }
         },
         elevation = 0.dp,
@@ -81,47 +83,23 @@ fun NoteTopBar(
 
 @Composable
 fun NoteList(
-    uiState: NoteUiState,
+    uiState: NoteUiState.HasNotes,
     actions: MainActions,
-    scrollState: LazyListState,
-    onErrorDismiss: (Long) -> (Unit)
+    scrollState: LazyListState
 ) {
-    when (uiState) {
-        is NoteUiState.HasNotes -> {
-            LazyColumn(
-                state = scrollState,
-                contentPadding = PaddingValues(
-                    vertical = 24.dp,
-                    horizontal = 16.dp
-                ),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-            ) {
-                items(uiState.notes) { item ->
-                    NoteItem(
-                        noteItem = item,
-                        onItemClick = { actions.gotoEditNote(item.id, item.color) }
-                    )
-                }
-            }
-        }
-        is NoteUiState.NoNotes -> {
-            EmptyNoteState(
-                visibility = !uiState.isLoading && uiState.errorMessages.isEmpty(),
-                lottieResource = R.raw.empty_state,
-                message = stringResource(id = R.string.empty_note_list)
+    LazyColumn(
+        state = scrollState,
+        contentPadding = PaddingValues(
+            vertical = 24.dp,
+            horizontal = 16.dp
+        ),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        items(uiState.notes) { item ->
+            NoteItem(
+                noteItem = item,
+                onItemClick = { actions.gotoEditNote(item.id, item.color) }
             )
-
-            if (uiState.errorMessages.isNotEmpty()) {
-                // Remember the errorMessage to display on the screen
-                val errorMessage = remember(uiState) { uiState.errorMessages[0] }
-                val errorMessageText = stringResource(errorMessage.messageId)
-
-                ShowDialog(
-                    showDialog = uiState.errorMessages.isNotEmpty(),
-                    message = errorMessageText,
-                    dismiss = { onErrorDismiss(errorMessage.id) }
-                )
-            }
         }
     }
 }
@@ -129,7 +107,7 @@ fun NoteList(
 @Composable
 fun NoteItem(
     noteItem: Note,
-    viewModel: MainViewModel = hiltViewModel(),
+    viewModel: NoteViewModel = hiltViewModel(),
     onItemClick: (Note) -> Unit
 ) {
     Column(

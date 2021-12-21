@@ -24,8 +24,6 @@ data class NoteViewModelState(
         if (notes.isEmpty()) {
             NoteUiState.NoNotes(
                 isLoading = isLoading,
-                noteOrder = noteOrder,
-                isOrderSectionVisible = isOrderSectionVisible,
                 errorMessages = errorMessages
             )
         } else {

@@ -14,7 +14,7 @@ import com.caner.noteplanner.view.notes.state.NoteUiState
 
 @Composable
 fun SortView(
-    uiState: NoteUiState,
+    uiState: NoteUiState.HasNotes,
     orderSelected: (NoteOrder) -> (Unit)
 ) {
     val noteOrder = uiState.noteOrder

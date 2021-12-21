@@ -8,21 +8,17 @@ sealed interface NoteUiState {
 
     val isLoading: Boolean
     val errorMessages: List<ErrorMessage>
-    val noteOrder: NoteOrder
-    val isOrderSectionVisible: Boolean
 
     data class NoNotes(
         override val isLoading: Boolean,
-        override val noteOrder: NoteOrder,
-        override val isOrderSectionVisible: Boolean,
         override val errorMessages: List<ErrorMessage>
     ) : NoteUiState
 
     data class HasNotes(
         val notes: List<Note>,
+        val noteOrder: NoteOrder,
+        val isOrderSectionVisible: Boolean,
         override val isLoading: Boolean,
-        override val noteOrder: NoteOrder,
-        override val isOrderSectionVisible: Boolean,
         override val errorMessages: List<ErrorMessage>,
     ) : NoteUiState
 }
