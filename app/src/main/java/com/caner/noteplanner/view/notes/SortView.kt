@@ -1,28 +1,26 @@
 package com.caner.noteplanner.view.notes
 
 import androidx.compose.animation.*
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.caner.noteplanner.R
-import com.caner.noteplanner.presentation.viewmodel.MainViewModel
 import com.caner.noteplanner.domain.utils.OrderType
 import com.caner.noteplanner.domain.utils.NoteOrder
 import com.caner.noteplanner.ui.components.DefaultRadioButton
+import com.caner.noteplanner.view.notes.state.NoteUiState
 
 @Composable
-fun SortSection(
-    viewModel: MainViewModel = hiltViewModel(),
-    noteOrder: NoteOrder = NoteOrder.Date(OrderType.Descending),
+fun SortView(
+    uiState: NoteUiState.HasNotes,
     orderSelected: (NoteOrder) -> (Unit)
 ) {
+    val noteOrder = uiState.noteOrder
+
     AnimatedVisibility(
-        visible = viewModel.noteState.value.isOrderSectionVisible,
+        visible = uiState.isOrderSectionVisible,
         enter = fadeIn() + slideInVertically(),
         exit = fadeOut() + slideOutVertically()
     ) {

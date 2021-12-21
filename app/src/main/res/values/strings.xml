@@ -14,4 +14,7 @@
     <string name="add_edit_note">Add Edit Note</string>
     <string name="add_note">Add Note</string>
     <string name="empty_note_list">No notes yet</string>
+    <string name="default_error">Something went wrong</string>
+    <string name="error_title">Error</string>
+    <string name="okay">Okay</string>
 </resources>

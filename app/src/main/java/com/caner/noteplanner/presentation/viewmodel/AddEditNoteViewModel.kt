@@ -1,7 +1,5 @@
 package com.caner.noteplanner.presentation.viewmodel
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -10,7 +8,7 @@ import com.caner.noteplanner.data.Constants
 import com.caner.noteplanner.data.model.Note
 import com.caner.noteplanner.domain.repository.NoteRepository
 import com.caner.noteplanner.view.detail.state.AddEditNoteEvent
-import com.caner.noteplanner.view.detail.state.UiEvent
+import com.caner.noteplanner.view.detail.state.NoteDetailUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -22,17 +20,10 @@ class AddEditNoteViewModel @Inject constructor(
     private val repository: NoteRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    private val _noteColor = mutableStateOf(Note.noteColors.random().toArgb())
-    val noteColor: State<Int> = _noteColor
 
-    private val _titleText = mutableStateOf("")
-    val titleText: State<String> = _titleText
-
-    private val _descriptionText = mutableStateOf("")
-    val descriptionText: State<String> = _descriptionText
-
-    private val _eventFlow = MutableSharedFlow<UiEvent>()
-    val eventFlow = _eventFlow.asSharedFlow()
+    // UI state exposed to the UI
+    private val _uiState = MutableStateFlow(NoteDetailUiState())
+    val uiState: StateFlow<NoteDetailUiState> = _uiState.asStateFlow()
 
     init {
         savedStateHandle.get<Int>(Constants.NOTE_ID)?.let { noteId ->
@@ -40,26 +31,42 @@ class AddEditNoteViewModel @Inject constructor(
                 findNoteByID(noteId)
             }
         }
+
+        savedStateHandle.get<Int>(Constants.NOTE_COLOR)?.let { noteColor ->
+            _uiState.update {
+                if (noteColor != -1) {
+                    it.copy(noteColor = noteColor)
+                } else {
+                    it.copy(noteColor = Note.noteColors.random().toArgb())
+                }
+            }
+        }
     }
 
     private fun saveNote(note: Note) = viewModelScope.launch {
-        try {
-            repository.insert(note)
-            _eventFlow.emit(UiEvent.NoteSaved)
-        } catch (e: Exception) {
-            _eventFlow.emit(UiEvent.ShowSnackBar(e.message))
+        _uiState.update {
+            try {
+                repository.insert(note)
+                it.copy(noteSaved = true)
+            } catch (e: Exception) {
+                it.copy(showErrorSnack = true)
+            }
         }
     }
 
     private fun findNoteByID(id: Int) = viewModelScope.launch {
-        repository.find(id).catch { _ ->
-
-
+        repository.find(id).catch {
+            _uiState.update { it.copy(showErrorSnack = true) }
         }.distinctUntilChanged().collect { note ->
             note.apply {
-                _titleText.value = title
-                _descriptionText.value = description
-                _noteColor.value = color
+                _uiState.update {
+                    it.copy(
+                        noteId = id,
+                        titleText = title,
+                        descriptionText = description,
+                        noteColor = color
+                    )
+                }
             }
         }
     }
@@ -67,27 +74,34 @@ class AddEditNoteViewModel @Inject constructor(
     fun onEvent(event: AddEditNoteEvent) {
         when (event) {
             is AddEditNoteEvent.ChangeColor -> {
-                _noteColor.value = event.color
+                _uiState.update { it.copy(noteColor = event.color) }
             }
 
             is AddEditNoteEvent.ChangeTitle -> {
-                _titleText.value = event.text
+                _uiState.update { it.copy(titleText = event.text) }
             }
 
             is AddEditNoteEvent.ChangeDescription -> {
-                _descriptionText.value = event.text
+                _uiState.update { it.copy(descriptionText = event.text) }
             }
 
             is AddEditNoteEvent.SaveNote -> {
-                saveNote(
-                    Note(
-                        _titleText.value,
-                        _descriptionText.value,
-                        color = _noteColor.value,
-                        createdAt = System.currentTimeMillis()
+                _uiState.value.apply {
+                    saveNote(
+                        Note(
+                            id = noteId,
+                            title = titleText,
+                            description = descriptionText,
+                            color = noteColor,
+                            createdAt = System.currentTimeMillis()
+                        )
                     )
-                )
+                }
             }
         }
+    }
+
+    fun errorMessageShown() {
+        _uiState.update { it.copy(showErrorSnack = false) }
     }
 }
