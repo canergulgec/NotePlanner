@@ -1,8 +1,8 @@
 package com.caner.noteplanner.di
 
-import com.caner.noteplanner.domain.qualifier.DefaultDispatcher
-import com.caner.noteplanner.domain.qualifier.IODispatcher
-import com.caner.noteplanner.domain.qualifier.MainDispatcher
+import com.caner.noteplanner.utils.qualifier.DefaultDispatcher
+import com.caner.noteplanner.utils.qualifier.IODispatcher
+import com.caner.noteplanner.utils.qualifier.MainDispatcher
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

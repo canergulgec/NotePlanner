@@ -1,4 +1,4 @@
-package com.caner.noteplanner.domain.utils
+package com.caner.noteplanner.presentation.utils
 
 sealed class OrderType {
     object Ascending: OrderType()

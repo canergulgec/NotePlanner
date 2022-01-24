@@ -1,4 +1,4 @@
-package com.caner.noteplanner.presentation.util
+package com.caner.noteplanner.view.navigation
 
 sealed class Screen(val route: String) {
     object Dashboard : Screen("dashboard")

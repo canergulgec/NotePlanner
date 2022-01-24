@@ -5,8 +5,7 @@ import androidx.compose.runtime.remember
 import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import com.caner.noteplanner.data.Constants
-import com.caner.noteplanner.presentation.util.Screen
+import com.caner.noteplanner.utils.Constants
 import com.caner.noteplanner.view.detail.AddEditNoteRoute
 import com.caner.noteplanner.view.notes.NoteRoute
 import com.google.accompanist.navigation.animation.AnimatedNavHost

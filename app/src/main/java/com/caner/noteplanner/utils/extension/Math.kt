@@ -1,4 +1,4 @@
-package com.caner.noteplanner.presentation.util
+package com.caner.noteplanner.utils.extension
 
 import androidx.compose.ui.unit.*
 

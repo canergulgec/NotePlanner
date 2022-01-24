@@ -1,6 +1,6 @@
 package com.caner.noteplanner.view.notes.state
 
-import com.caner.noteplanner.domain.utils.NoteOrder
+import com.caner.noteplanner.presentation.utils.NoteOrder
 
 sealed class NoteEvent{
     data class Order(val noteOrder: NoteOrder): NoteEvent()

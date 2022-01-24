@@ -1,4 +1,4 @@
-package com.caner.noteplanner.domain.local
+package com.caner.noteplanner.data.local
 
 import androidx.room.*
 import com.caner.noteplanner.data.model.Note

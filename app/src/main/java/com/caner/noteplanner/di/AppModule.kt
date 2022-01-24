@@ -2,8 +2,8 @@ package com.caner.noteplanner.di
 
 import android.content.Context
 
-import com.caner.noteplanner.domain.local.datastore.ThemeManager
-import com.caner.noteplanner.domain.local.datastore.ThemeManagerImpl
+import com.caner.noteplanner.data.local.datastore.ThemeManager
+import com.caner.noteplanner.data.local.datastore.ThemeManagerImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

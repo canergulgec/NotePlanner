@@ -1,4 +1,4 @@
-package com.caner.noteplanner.domain.local.datastore
+package com.caner.noteplanner.data.local.datastore
 
 import android.content.Context
 import androidx.datastore.preferences.core.booleanPreferencesKey

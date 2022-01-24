@@ -1,4 +1,4 @@
-package com.caner.noteplanner.domain.qualifier
+package com.caner.noteplanner.utils.qualifier
 
 import javax.inject.Qualifier
 

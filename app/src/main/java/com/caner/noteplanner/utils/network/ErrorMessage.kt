@@ -1,4 +1,4 @@
-package com.caner.noteplanner.domain.utils
+package com.caner.noteplanner.utils.network
 
 import androidx.annotation.StringRes
 

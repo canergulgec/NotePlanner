@@ -1,9 +1,9 @@
 package com.caner.noteplanner.view.notes.state
 
 import com.caner.noteplanner.data.model.Note
-import com.caner.noteplanner.domain.utils.ErrorMessage
-import com.caner.noteplanner.domain.utils.NoteOrder
-import com.caner.noteplanner.domain.utils.OrderType
+import com.caner.noteplanner.utils.network.ErrorMessage
+import com.caner.noteplanner.presentation.utils.NoteOrder
+import com.caner.noteplanner.presentation.utils.OrderType
 
 /**
  * An internal representation of the Note route state, in a raw form

@@ -1,7 +1,7 @@
-package com.caner.noteplanner.domain.repository
+package com.caner.noteplanner.data.local.repository
 
 import com.caner.noteplanner.data.model.Note
-import com.caner.noteplanner.domain.utils.NoteOrder
+import com.caner.noteplanner.presentation.utils.NoteOrder
 import kotlinx.coroutines.flow.Flow
 
 interface NoteRepository {

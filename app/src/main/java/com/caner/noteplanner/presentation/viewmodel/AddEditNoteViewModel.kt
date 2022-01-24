@@ -4,9 +4,9 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.caner.noteplanner.data.Constants
+import com.caner.noteplanner.utils.Constants
 import com.caner.noteplanner.data.model.Note
-import com.caner.noteplanner.domain.repository.NoteRepository
+import com.caner.noteplanner.data.local.repository.NoteRepository
 import com.caner.noteplanner.view.detail.state.AddEditNoteEvent
 import com.caner.noteplanner.view.detail.state.NoteDetailUiState
 import dagger.hilt.android.lifecycle.HiltViewModel

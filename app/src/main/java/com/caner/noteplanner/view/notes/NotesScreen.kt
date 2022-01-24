@@ -28,9 +28,9 @@ import androidx.compose.ui.unit.max
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.caner.noteplanner.R
 import com.caner.noteplanner.data.model.Note
-import com.caner.noteplanner.presentation.util.getMaxDp
-import com.caner.noteplanner.presentation.util.getMaxSp
 import com.caner.noteplanner.presentation.viewmodel.NoteViewModel
+import com.caner.noteplanner.utils.extension.getMaxDp
+import com.caner.noteplanner.utils.extension.getMaxSp
 import com.caner.noteplanner.view.navigation.MainActions
 import com.caner.noteplanner.view.notes.animation.LottieAnimationPlaceHolder
 import com.caner.noteplanner.view.notes.state.NoteEvent

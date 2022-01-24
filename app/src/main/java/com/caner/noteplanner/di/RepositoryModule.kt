@@ -1,7 +1,7 @@
 package com.caner.noteplanner.di
 
-import com.caner.noteplanner.domain.repository.NoteRepository
-import com.caner.noteplanner.domain.repository.NoteRepositoryImpl
+import com.caner.noteplanner.data.local.repository.NoteRepository
+import com.caner.noteplanner.data.local.repository.NoteRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

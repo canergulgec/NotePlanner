@@ -1,10 +1,10 @@
-package com.caner.noteplanner.domain.repository
+package com.caner.noteplanner.data.local.repository
 
 import com.caner.noteplanner.data.model.Note
-import com.caner.noteplanner.domain.local.NoteDao
-import com.caner.noteplanner.domain.qualifier.IODispatcher
-import com.caner.noteplanner.domain.utils.NoteOrder
-import com.caner.noteplanner.domain.utils.OrderType
+import com.caner.noteplanner.data.local.NoteDao
+import com.caner.noteplanner.utils.qualifier.IODispatcher
+import com.caner.noteplanner.presentation.utils.NoteOrder
+import com.caner.noteplanner.presentation.utils.OrderType
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn

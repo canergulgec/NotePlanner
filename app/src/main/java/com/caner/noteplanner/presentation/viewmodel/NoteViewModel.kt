@@ -3,10 +3,10 @@ package com.caner.noteplanner.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.caner.noteplanner.R
-import com.caner.noteplanner.domain.repository.NoteRepository
-import com.caner.noteplanner.domain.utils.ErrorMessage
-import com.caner.noteplanner.domain.utils.NoteOrder
-import com.caner.noteplanner.domain.utils.OrderType
+import com.caner.noteplanner.data.local.repository.NoteRepository
+import com.caner.noteplanner.utils.network.ErrorMessage
+import com.caner.noteplanner.presentation.utils.NoteOrder
+import com.caner.noteplanner.presentation.utils.OrderType
 import com.caner.noteplanner.view.notes.state.NoteEvent
 import com.caner.noteplanner.view.notes.state.NoteViewModelState
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -7,8 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.caner.noteplanner.R
-import com.caner.noteplanner.domain.utils.OrderType
-import com.caner.noteplanner.domain.utils.NoteOrder
+import com.caner.noteplanner.presentation.utils.OrderType
+import com.caner.noteplanner.presentation.utils.NoteOrder
 import com.caner.noteplanner.ui.components.DefaultRadioButton
 import com.caner.noteplanner.view.notes.state.NoteUiState
 

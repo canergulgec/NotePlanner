@@ -1,4 +1,4 @@
-package com.caner.noteplanner.domain.utils
+package com.caner.noteplanner.presentation.utils
 
 sealed class NoteOrder(val orderType: OrderType){
     class Title(orderType: OrderType): NoteOrder(orderType)

@@ -2,8 +2,8 @@ package com.caner.noteplanner.di
 
 import android.content.Context
 import androidx.room.Room
-import com.caner.noteplanner.domain.local.NoteDao
-import com.caner.noteplanner.domain.local.NoteDatabase
+import com.caner.noteplanner.data.local.NoteDao
+import com.caner.noteplanner.data.local.NoteDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
