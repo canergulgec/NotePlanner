@@ -3,6 +3,7 @@ package com.caner.noteplanner.view.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.caner.noteplanner.utils.Constants
@@ -53,10 +54,28 @@ class MainActions(navController: NavController) {
     val gotoEditNote: (id: Int, color: Int) -> Unit = { id, color ->
         navController.navigate(
             Screen.AddEditNote.createParamsRoute(id, color)
-        )
+        ){
+            // Pop up to the start destination of the graph to
+            // avoid building up a large stack of destinations
+            // on the back stack as users select items
+            popUpTo(navController.graph.findStartDestination().id) {
+                saveState = true
+            }
+            // Avoid multiple copies of the same destination when
+            // reselecting the same item
+            launchSingleTop = true
+            // Restore state when reselecting a previously selected item
+            restoreState = true
+        }
     }
 
     val gotoAddNote: () -> Unit = {
-        navController.navigate(Screen.AddEditNote.addNoteRoute())
+        navController.navigate(Screen.AddEditNote.addNoteRoute()){
+            popUpTo(navController.graph.findStartDestination().id) {
+                saveState = true
+            }
+            launchSingleTop = true
+            restoreState = true
+        }
     }
 }
